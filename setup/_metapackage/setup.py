@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo-addon-repair_scrap>=15.0dev,<15.1dev',
         'odoo-addon-repair_security>=15.0dev,<15.1dev',
         'odoo-addon-repair_stock_move>=15.0dev,<15.1dev',
+        'odoo-addon-repair_stock_move_restrict_lot>=15.0dev,<15.1dev',
         'odoo-addon-repair_type>=15.0dev,<15.1dev',
         'odoo-addon-repair_type_refurbish>=15.0dev,<15.1dev',
         'odoo-addon-repair_type_security>=15.0dev,<15.1dev',
