@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="view_repair_order_tree_inherit" model="ir.ui.view">
+        <field name="name">repair.order.tree.inherit</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[1]" position="before">
+                <field name="repair_type_id" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
     <record id="repair_type_form_inherit" model="ir.ui.view">
         <field name="name">repair.type.inherit</field>
         <field name="model">repair.order</field>
