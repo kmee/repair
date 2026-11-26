@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_repair_order_form_item_approval" model="ir.ui.view">
+        <field name="name">repair.order.form - repair_item_approval</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="pending_item_count" invisible="1" />
+                <button
+                    name="%(repair_item_approval.action_repair_pending_item_wizard)d"
+                    type="action"
+                    string="Refuse pending items"
+                    invisible="pending_item_count == 0 or state in ('done', 'cancel')"
+                    context="{'default_repair_id': id, 'default_decision': 'refuse'}"
+                />
+                <button
+                    name="%(repair_item_approval.action_repair_pending_item_wizard)d"
+                    type="action"
+                    string="Approve pending items"
+                    invisible="pending_item_count == 0 or state in ('done', 'cancel')"
+                    groups="repair_item_approval.group_repair_item_manager"
+                    context="{'default_repair_id': id, 'default_decision': 'approve'}"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='move_ids']/list/field[@name='repair_line_type']"
+                position="after"
+            >
+                <field
+                    name="approval_state"
+                    readonly="1"
+                    widget="badge"
+                    decoration-warning="approval_state == 'pending'"
+                    decoration-danger="approval_state == 'rejected'"
+                    decoration-success="approval_state == 'approved'"
+                />
+                <field
+                    name="item_class"
+                    optional="show"
+                    readonly="approval_state != 'pending' and state != 'draft'"
+                />
+            </xpath>
+            <xpath expr="//field[@name='repair_service_ids']/list" position="inside">
+                <field
+                    name="approval_state"
+                    readonly="1"
+                    widget="badge"
+                    decoration-warning="approval_state == 'pending'"
+                    decoration-danger="approval_state == 'rejected'"
+                    decoration-success="approval_state == 'approved'"
+                />
+                <field name="item_class" optional="show" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_repair_order_search_item_approval" model="ir.ui.view">
+        <field name="name">repair.order.search - repair_item_approval</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter
+                    name="awaiting_customer"
+                    string="Awaiting customer"
+                    domain="[('customer_wait_since', '!=', False)]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

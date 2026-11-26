@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="repair_pending_item_wizard_form" model="ir.ui.view">
+        <field name="name">repair.pending.item.wizard.form</field>
+        <field name="model">repair.pending.item.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="repair_id" />
+                    <field name="decision" />
+                    <field name="item_count" />
+                    <field name="finish" invisible="decision != 'refuse'" />
+                    <field name="note" required="decision == 'approve'" />
+                </group>
+                <footer>
+                    <button
+                        name="action_confirm"
+                        type="object"
+                        string="Confirm"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_repair_pending_item_wizard" model="ir.actions.act_window">
+        <field name="name">Pending repair items</field>
+        <field name="res_model">repair.pending.item.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

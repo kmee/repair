@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_repair_pending_item_wizard_user,repair.pending.item.wizard user,model_repair_pending_item_wizard,stock.group_stock_user,1,1,1,1

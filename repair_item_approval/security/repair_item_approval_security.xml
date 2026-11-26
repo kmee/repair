@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_repair_item_manager" model="res.groups">
+        <field name="name">Repair item approval manager</field>
+        <field
+            name="comment"
+        >Approves the pending items of a repair order without the customer (a note is mandatory) and negotiates mandatory items.</field>
+        <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]" />
+    </record>
+</odoo>
