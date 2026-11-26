@@ -105,20 +105,54 @@ class RepairOrder(models.Model):
         }
         return leftovers, origins
 
-    def _prepare_leftover_return_picking(self, workshop, destination):
+    def _create_transfer(self, source, destination, products, origin):
+        """Transfer ``products`` ({product: {lot: qty}}) from source to destination.
+
+        The transfer is linked to the repair order (procurement group), reserved
+        lot by lot and left ready for the stock operator to validate.
+        """
         self.ensure_one()
         picking_type = (
-            workshop.warehouse_id.int_type_id
+            source.warehouse_id.int_type_id
             or self.picking_type_id.warehouse_id.int_type_id
         )
-        return {
-            "picking_type_id": picking_type.id,
-            "location_id": workshop.id,
-            "location_dest_id": destination.id,
-            "origin": _("Leftover parts of %s", self.name),
-            "group_id": self.procurement_group_id.id,
-            "company_id": self.company_id.id,
-        }
+        picking = self.env["stock.picking"].create(
+            {
+                "picking_type_id": picking_type.id,
+                "location_id": source.id,
+                "location_dest_id": destination.id,
+                "origin": origin,
+                "group_id": self.procurement_group_id.id,
+                "company_id": self.company_id.id,
+            }
+        )
+        for product, lots in products.items():
+            self.env["stock.move"].create(
+                {
+                    "name": product.display_name,
+                    "picking_id": picking.id,
+                    "product_id": product.id,
+                    "product_uom": product.uom_id.id,
+                    "product_uom_qty": sum(lots.values()),
+                    "location_id": source.id,
+                    "location_dest_id": destination.id,
+                    "picking_type_id": picking_type.id,
+                    "group_id": self.procurement_group_id.id,
+                    "company_id": self.company_id.id,
+                }
+            )
+        picking.action_confirm()
+        for move in picking.move_ids:
+            lots = products[move.product_id]
+            if any(lots):
+                for lot, qty in lots.items():
+                    move._update_reserved_quantity(
+                        qty, source, lot_id=lot or None, strict=True
+                    )
+                move._recompute_state()
+            else:
+                move._action_assign()
+        return picking
 
     def _create_leftover_return(self):
         """Create (and reserve) the transfers that bring the leftovers back."""
@@ -131,51 +165,101 @@ class RepairOrder(models.Model):
             by_destination = defaultdict(lambda: defaultdict(dict))
             for (product, lot), qty in leftovers.items():
                 by_destination[origins[product]][product][lot] = qty
+            new = self.env["stock.picking"]
             for destination, products in by_destination.items():
-                picking = self.env["stock.picking"].create(
-                    repair._prepare_leftover_return_picking(workshop, destination)
+                new |= repair._create_transfer(
+                    workshop,
+                    destination,
+                    products,
+                    _("Leftover parts of %s", repair.name),
                 )
-                for product, lots in products.items():
-                    self.env["stock.move"].create(
-                        {
-                            "name": product.display_name,
-                            "picking_id": picking.id,
-                            "product_id": product.id,
-                            "product_uom": product.uom_id.id,
-                            "product_uom_qty": sum(lots.values()),
-                            "location_id": workshop.id,
-                            "location_dest_id": destination.id,
-                            "picking_type_id": picking.picking_type_id.id,
-                            "group_id": repair.procurement_group_id.id,
-                            "company_id": repair.company_id.id,
-                        }
-                    )
-                picking.action_confirm()
-                for move in picking.move_ids:
-                    lots = products[move.product_id]
-                    if any(lots):
-                        for lot, qty in lots.items():
-                            move._update_reserved_quantity(
-                                qty, workshop, lot_id=lot or None, strict=True
-                            )
-                        move._recompute_state()
-                    else:
-                        move._action_assign()
-                pickings |= picking
             repair.message_post(
                 body=_("Return of the leftover parts generated: %s")
-                % ", ".join(pickings.mapped("name"))
+                % ", ".join(new.mapped("name"))
             )
+            pickings |= new
+        return pickings
+
+    def _removed_by_transfer(self):
+        self.ensure_one()
+        picking_type = self.picking_type_id
+        return (
+            picking_type.removed_by_transfer
+            and picking_type.removed_staging_location_id
+        )
+
+    def _get_removed_pending(self):
+        """Removed parts waiting in the staging location, by final destination.
+
+        Return ``{destination: {product: {lot: quantity}}}``.
+        """
+        self.ensure_one()
+        if not self._removed_by_transfer():
+            return {}
+        staging = self.picking_type_id.removed_staging_location_id
+        pending = defaultdict(float)
+        done = self.move_ids.filtered(
+            lambda m: (
+                m._is_removed_part()
+                and m.state == "done"
+                and m.location_dest_id == staging
+            )
+        )
+        for move in done:
+            destination = move._get_removed_destination_location()
+            if not destination:
+                continue
+            for key, qty in self._lot_quantities(move.move_line_ids).items():
+                pending[(destination, *key)] += qty
+        outgoing = self.env["stock.move"].search(
+            [
+                ("group_id", "=", self.procurement_group_id.id),
+                ("repair_id", "=", False),
+                ("state", "not in", ("cancel", "draft")),
+                ("location_id", "=", staging.id),
+            ]
+        )
+        for move in outgoing:
+            for key, qty in self._lot_quantities(move.move_line_ids).items():
+                pending[(move.location_dest_id, *key)] -= qty
+        result = defaultdict(lambda: defaultdict(dict))
+        for (destination, product, lot), qty in pending.items():
+            if qty > product.uom_id.rounding / 2:
+                result[destination][product][lot] = qty
+        return result
+
+    def _create_removed_transfers(self):
+        """One transfer per destination: staging location to the final one."""
+        pickings = self.env["stock.picking"]
+        for repair in self:
+            pending = repair._get_removed_pending()
+            if not pending:
+                continue
+            staging = repair.picking_type_id.removed_staging_location_id
+            new = self.env["stock.picking"]
+            for destination, products in pending.items():
+                new |= repair._create_transfer(
+                    staging,
+                    destination,
+                    products,
+                    _("Removed parts of %s", repair.name),
+                )
+            repair.message_post(
+                body=_("Transfers of the removed parts generated: %s")
+                % ", ".join(new.mapped("name"))
+            )
+            pickings |= new
         return pickings
 
     def action_return_leftovers(self):
         self.ensure_one()
-        pickings = self._create_leftover_return()
+        pickings = self._create_leftover_return() | self._create_removed_transfers()
         if not pickings:
-            raise UserError(_("There are no leftover parts to return."))
+            raise UserError(_("There are no leftover or removed parts to transfer."))
         return self.action_view_parts_pickings()
 
     def action_repair_done(self):
         res = super().action_repair_done()
         self._create_leftover_return()
+        self._create_removed_transfers()
         return res

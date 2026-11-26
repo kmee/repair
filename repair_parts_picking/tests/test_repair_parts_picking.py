@@ -22,11 +22,18 @@ class TestRepairPartsPicking(TransactionCase):
         cls.quarantine = Location.create(
             {"name": "Quarantine", "location_id": parent.id}
         )
+        cls.recoverable = Location.create(
+            {"name": "To recover", "location_id": parent.id}
+        )
+        cls.staging = Location.create({"name": "Removed", "location_id": parent.id})
         cls.picking_type = cls.warehouse.repair_type_id
         cls.picking_type.write(
             {
                 "default_add_location_src_id": cls.workshop.id,
                 "removed_quarantine_location_id": cls.quarantine.id,
+                "removed_recoverable_location_id": cls.recoverable.id,
+                "removed_by_transfer": True,
+                "removed_staging_location_id": cls.staging.id,
             }
         )
         production = cls.picking_type.default_location_dest_id
@@ -72,6 +79,14 @@ class TestRepairPartsPicking(TransactionCase):
         cls.lot_part = cls._product("Lot part", "lot")
         cls.removed = cls.env["product.product"].create(
             {"name": "Old part", "type": "consu", "is_storable": True}
+        )
+        cls.serial_removed = cls.env["product.product"].create(
+            {
+                "name": "Old serial part",
+                "type": "consu",
+                "is_storable": True,
+                "tracking": "serial",
+            }
         )
         cls._stock(cls.part, 10.0)
         cls.lot = cls.env["stock.lot"].create(
@@ -232,29 +247,119 @@ class TestRepairPartsPicking(TransactionCase):
         )
         self.assertEqual(quant.quantity, 3.0)
 
-    def test_06_removed_part_goes_to_quarantine_and_leftover_to_stock(self):
-        repair = self._repair()
-        move = self._add(repair, self.part, 3.0)
-        self._validate(self._separation(repair))
-        removed = self.env["stock.move"].create(
+    def _removed_pickings(self, repair, destination):
+        repair.invalidate_recordset(["parts_picking_ids", "parts_picking_count"])
+        return repair.parts_picking_ids.filtered(
+            lambda p: (
+                p.location_id == self.staging and p.location_dest_id == destination
+            )
+        )
+
+    def _remove(self, repair, product, destination, serial=None):
+        move = self.env["stock.move"].create(
             {
                 "repair_id": repair.id,
                 "repair_line_type": "remove",
-                "product_id": self.removed.id,
+                "product_id": product.id,
                 "product_uom_qty": 1.0,
-                "removed_destination": "quarantine",
+                "removed_destination": destination,
             }
         )
-        removed.quantity = 1.0
-        removed.picked = True
+        if serial:
+            move.move_line_ids.unlink()
+            self.env["stock.move.line"].create(
+                {
+                    "move_id": move.id,
+                    "product_id": product.id,
+                    "quantity": 1.0,
+                    "lot_name": serial,
+                    "location_id": move.location_id.id,
+                    "location_dest_id": move.location_dest_id.id,
+                    "company_id": move.company_id.id,
+                }
+            )
+        else:
+            move.quantity = 1.0
+        move.picked = True
+        return move
+
+    def _qty(self, product, location, lot=None):
+        quants = self.env["stock.quant"].search(
+            [("product_id", "=", product.id), ("location_id", "=", location.id)]
+        )
+        if lot:
+            quants = quants.filtered(lambda q: q.lot_id == lot)
+        return sum(quants.mapped("quantity"))
+
+    def test_06_removed_part_waits_in_staging_then_goes_by_transfer(self):
+        repair = self._repair()
+        move = self._add(repair, self.part, 3.0)
+        self._validate(self._separation(repair))
+        removed = self._remove(repair, self.removed, "quarantine")
+        self.assertEqual(removed.location_dest_id, self.staging)
         repair.action_repair_start()
         self._use(move, 2.0)
         repair.action_repair_end()
         self.assertEqual(removed.state, "done")
-        quarantined = self.env["stock.quant"]._get_available_quantity(
-            self.removed, self.quarantine
-        )
-        self.assertEqual(quarantined, 1.0)
+        self.assertEqual(self._qty(self.removed, self.staging), 1.0)
+        self.assertEqual(self._qty(self.removed, self.quarantine), 0.0)
+        transfer = self._removed_pickings(repair, self.quarantine)
+        self.assertEqual(len(transfer), 1)
+        self.assertEqual(transfer.state, "assigned")
+        self.assertEqual(transfer.group_id, repair.procurement_group_id)
+        self._validate(transfer)
+        self.assertEqual(self._qty(self.removed, self.staging), 0.0)
+        self.assertEqual(self._qty(self.removed, self.quarantine), 1.0)
         returns = self._returns(repair)
         self.assertEqual(returns.move_ids.product_id, self.part)
-        self.assertNotIn(self.removed, returns.move_ids.product_id)
+
+    def test_07_one_transfer_per_destination_with_serial_number(self):
+        repair = self._repair()
+        self._remove(repair, self.removed, "quarantine")
+        self._remove(repair, self.removed, "recoverable")
+        self._remove(repair, self.serial_removed, "quarantine", serial="SN-OLD-9")
+        repair.action_repair_start()
+        repair.action_repair_end()
+        to_quarantine = self._removed_pickings(repair, self.quarantine)
+        to_recover = self._removed_pickings(repair, self.recoverable)
+        self.assertEqual(len(to_quarantine), 1)
+        self.assertEqual(len(to_recover), 1)
+        self.assertEqual(
+            sorted(to_quarantine.move_ids.product_id.ids),
+            sorted((self.removed | self.serial_removed).ids),
+        )
+        self.assertEqual(
+            to_quarantine.move_line_ids.lot_id.mapped("name"), ["SN-OLD-9"]
+        )
+        self.assertEqual(self._qty(self.removed, self.staging), 2.0)
+        self._validate(to_quarantine)
+        self._validate(to_recover)
+        lot = self.env["stock.lot"].search([("name", "=", "SN-OLD-9")])
+        self.assertEqual(self._qty(self.serial_removed, self.quarantine, lot), 1.0)
+        self.assertEqual(self._qty(self.serial_removed, self.staging, lot), 0.0)
+        self.assertEqual(self._qty(self.removed, self.quarantine), 1.0)
+        self.assertEqual(self._qty(self.removed, self.recoverable), 1.0)
+        self.assertEqual(self._qty(self.removed, self.staging), 0.0, "nothing is lost")
+        with self.assertRaises(UserError):
+            repair.action_return_leftovers()
+
+    def test_08_option_off_goes_straight_to_the_destination(self):
+        self.picking_type.removed_by_transfer = False
+        repair = self._repair()
+        removed = self._remove(repair, self.removed, "quarantine")
+        self.assertEqual(removed.location_dest_id, self.quarantine)
+        repair.action_repair_start()
+        repair.action_repair_end()
+        self.assertEqual(self._qty(self.removed, self.quarantine), 1.0)
+        self.assertEqual(self._qty(self.removed, self.staging), 0.0)
+        self.assertFalse(self._removed_pickings(repair, self.quarantine))
+
+    def test_09_button_generates_the_removed_transfer_once(self):
+        repair = self._repair()
+        self._remove(repair, self.removed, "recoverable")
+        repair.action_repair_start()
+        repair.action_repair_end()
+        self.assertEqual(len(self._removed_pickings(repair, self.recoverable)), 1)
+        with self.assertRaises(UserError):
+            repair.action_return_leftovers()
+        self.assertEqual(len(self._removed_pickings(repair, self.recoverable)), 1)

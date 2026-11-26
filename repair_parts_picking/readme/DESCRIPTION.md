@@ -10,3 +10,10 @@ workshop location:
   to the repair order. The button *Return leftover parts* does the same at any
   time. The parts removed from the aircraft go to their own destinations (see
   `repair_remove_destination`).
+
+- Removed parts (lines Remove and Recycle): with the operation type option
+  *Removed Parts by Transfer*, the part stops in a staging location of the
+  workshop and, when the repair order ends, one transfer per destination
+  (Quarantine, To be recovered, Condemned) is generated for the stock operator to
+  validate, so nothing disappears. Without the option, the part goes straight to
+  its destination.

@@ -30,4 +30,26 @@
             </xpath>
         </field>
     </record>
+    <record id="repair_view_picking_type_form_parts_picking" model="ir.ui.view">
+        <field name="name">stock.picking.type.form - repair_parts_picking</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="repair.repair_view_picking_type_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='removed_condemned_location_id']"
+                position="after"
+            >
+                <field
+                    name="removed_by_transfer"
+                    invisible="code != 'repair_operation'"
+                />
+                <field
+                    name="removed_staging_location_id"
+                    options="{'no_create': True}"
+                    invisible="code != 'repair_operation' or not removed_by_transfer"
+                    required="removed_by_transfer"
+                />
+            </xpath>
+        </field>
+    </record>
 </odoo>
