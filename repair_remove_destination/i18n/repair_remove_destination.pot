@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* repair_remove_destination
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 00:09+0000\n"
+"PO-Revision-Date: 2026-11-26 00:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: repair_remove_destination
+#: model:ir.model.fields.selection,name:repair_remove_destination.selection__stock_move__removed_destination__condemned
+msgid "Condemned"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,field_description:repair_remove_destination.field_stock_picking_type__removed_condemned_location_id
+msgid "Condemned Location"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,help:repair_remove_destination.field_stock_picking_type__removed_condemned_location_id
+msgid "Destination of the removed parts that are scrapped."
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,help:repair_remove_destination.field_stock_picking_type__removed_recoverable_location_id
+msgid "Destination of the removed parts that can be repaired."
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,help:repair_remove_destination.field_stock_picking_type__removed_quarantine_location_id
+msgid "Destination of the removed parts that wait for an evaluation."
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model,name:repair_remove_destination.model_stock_picking_type
+msgid "Picking Type"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields.selection,name:repair_remove_destination.selection__stock_move__removed_destination__quarantine
+msgid "Quarantine"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,field_description:repair_remove_destination.field_stock_picking_type__removed_quarantine_location_id
+msgid "Quarantine Location"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,field_description:repair_remove_destination.field_stock_move__removed_destination
+msgid "Removed Destination"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model,name:repair_remove_destination.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,field_description:repair_remove_destination.field_stock_picking_type__removed_recoverable_location_id
+msgid "To Be Recovered Location"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields.selection,name:repair_remove_destination.selection__stock_move__removed_destination__recoverable
+msgid "To be recovered"
+msgstr ""
+
+#. module: repair_remove_destination
+#: model:ir.model.fields,help:repair_remove_destination.field_stock_move__removed_destination
+msgid "Where the removed part goes. Default: quarantine."
+msgstr ""

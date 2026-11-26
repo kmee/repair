@@ -1,0 +1,166 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* repair_complementary_quotation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 00:09+0000\n"
+"PO-Revision-Date: 2026-11-26 00:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/sale_order.py:0
+msgid ""
+"%(order)s has confirmed complementary orders (%(names)s): they are part of "
+"the repair."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/sale_order_line.py:0
+msgid ""
+"%s was already sent to the customer: cancel it before changing its items."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/sale_order.py:0
+msgid ""
+"A complementary order cannot be duplicated: generate a new one from the "
+"repair order."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model.fields,field_description:repair_complementary_quotation.field_repair_order__complement_count
+msgid "Complement Count"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model_terms:ir.ui.view,arch_db:repair_complementary_quotation.view_repair_order_form_complementary
+msgid "Complementary"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+#: model:ir.model.fields,field_description:repair_complementary_quotation.field_sale_order__complement_ids
+msgid "Complementary Orders"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model.fields,field_description:repair_complementary_quotation.field_sale_order__complement_of_id
+msgid "Complementary of"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "Complementary of %s"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/sale_order.py:0
+msgid "Complementary order %(order)s confirmed by %(who)s:"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/sale_order.py:0
+msgid "Complementary order %s cancelled"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "Complementary order %s generated."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/sale_order.py:0
+msgid "Complementary order %s was refused or cancelled:"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model_terms:ir.ui.view,arch_db:repair_complementary_quotation.view_repair_order_form_complementary
+msgid "Generate complementary quotation"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:res.groups,comment:repair_complementary_quotation.group_repair_quote
+msgid "Generates and sends the complementary orders of a repair order."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model.fields,field_description:repair_complementary_quotation.field_repair_order__has_unquoted_pending_items
+msgid "Has Unquoted Pending Items"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model.fields,help:repair_complementary_quotation.field_sale_order__complement_of_id
+msgid "Main sale order of the repair order this order complements."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "Mandatory by the regulation"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "Only quotation users generate complementary orders."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model,name:repair_complementary_quotation.model_repair_order
+msgid "Repair Order"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model,name:repair_complementary_quotation.model_repair_service
+msgid "Repair Service"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:res.groups,name:repair_complementary_quotation.group_repair_quote
+msgid "Repair complementary quotation"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model,name:repair_complementary_quotation.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#: model:ir.model,name:repair_complementary_quotation.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "The main sale order of %s must be confirmed."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "The sale order type is not in repair mode."
+msgstr ""
+
+#. module: repair_complementary_quotation
+#. odoo-python
+#: code:addons/repair_complementary_quotation/models/repair_order.py:0
+msgid "There are no pending items to quote."
+msgstr ""

@@ -1,0 +1,475 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* repair_item_approval
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 00:09+0000\n"
+"PO-Revision-Date: 2026-11-26 00:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid ""
+"%(repair)s has %(count)s item(s) awaiting approval: approve or refuse them "
+"before finishing the repair."
+msgstr ""
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/sale_order_line.py:0
+msgid ""
+"%s is mandatory by the regulation: price and discount are not negotiated."
+msgstr ""
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "A note is required to approve items internally."
+msgstr "Uma observação é obrigatória para aprovar itens internamente."
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_item_approval_mixin.py:0
+msgid "A note is required to refuse a mandatory item: %s"
+msgstr "Uma observação é obrigatória para recusar um item obrigatório: %s"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_repair_item_approval_mixin__approval_amount
+#: model:ir.model.fields,help:repair_item_approval.field_repair_service__approval_amount
+#: model:ir.model.fields,help:repair_item_approval.field_stock_move__approval_amount
+msgid ""
+"Amount of the item when it was added, in the currency of the sale order."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_item_approval_mixin__approval_amount
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_service__approval_amount
+#: model:ir.model.fields,field_description:repair_item_approval.field_stock_move__approval_amount
+msgid "Approval Amount"
+msgstr "Valor na inclusão"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_item_approval_mixin__approval_currency_id
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_service__approval_currency_id
+#: model:ir.model.fields,field_description:repair_item_approval.field_stock_move__approval_currency_id
+msgid "Approval Currency"
+msgstr "Moeda da aprovação"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_item_approval_mixin__approval_origin
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_service__approval_origin
+#: model:ir.model.fields,field_description:repair_item_approval.field_stock_move__approval_origin
+msgid "Approval Origin"
+msgstr "Origem da aprovação"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_item_approval_mixin__approval_state
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_service__approval_state
+#: model:ir.model.fields,field_description:repair_item_approval.field_stock_move__approval_state
+msgid "Approval State"
+msgstr "Situação da aprovação"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_pending_item_wizard__decision__approve
+msgid "Approve"
+msgstr "Aprovar"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_repair_pending_item_wizard
+msgid "Approve or refuse the pending items of a repair order"
+msgstr "Aprovar ou recusar os itens pendentes de uma ordem de reparo"
+
+#. module: repair_item_approval
+#: model_terms:ir.ui.view,arch_db:repair_item_approval.view_repair_order_form_item_approval
+msgid "Approve pending items"
+msgstr "Aprovar itens pendentes"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_state__approved
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_state__approved
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_state__approved
+msgid "Approved"
+msgstr "Aprovado"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_partner__repair_approve_all
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_users__repair_approve_all
+msgid "Approves Every Repair Item"
+msgstr "Aprova todo item do reparo"
+
+#. module: repair_item_approval
+#: model:res.groups,comment:repair_item_approval.group_repair_item_manager
+msgid ""
+"Approves the pending items of a repair order without the customer (a note is"
+" mandatory) and negotiates mandatory items."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_state__pending
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_state__pending
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_state__pending
+msgid "Awaiting Approval"
+msgstr "Aguardando aprovação"
+
+#. module: repair_item_approval
+#: model_terms:ir.ui.view,arch_db:repair_item_approval.view_repair_order_search_item_approval
+msgid "Awaiting customer"
+msgstr "Aguardando o cliente"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_origin__limit
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_origin__limit
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_origin__limit
+msgid "Below the limit"
+msgstr "Abaixo do limite"
+
+#. module: repair_item_approval
+#: model_terms:ir.ui.view,arch_db:repair_item_approval.repair_pending_item_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_res_company__repair_approval_inclusive
+msgid ""
+"Checked: an item equal to the limit is applied without approval. Unchecked: "
+"only items strictly below the limit are."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: repair_item_approval
+#: model_terms:ir.ui.view,arch_db:repair_item_approval.repair_pending_item_wizard_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_res_company__repair_approval_currency_id
+msgid ""
+"Currency of the repair approval limit. The limit is converted to the "
+"currency of the sale order with the rate of the day."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_origin__customer
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_origin__customer
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_origin__customer
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__decision
+msgid "Decision"
+msgstr "Decisão"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_res_partner__repair_approve_all
+#: model:ir.model.fields,help:repair_item_approval.field_res_users__repair_approve_all
+msgid ""
+"Every item added in the repair orders of this customer waits for its "
+"approval, whatever the amount."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__finish
+msgid "Finish the repair order afterwards"
+msgstr "Concluir a ordem de reparo em seguida"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_origin__manager
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_origin__manager
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_origin__manager
+msgid "Internal approval"
+msgstr "Aprovação interna"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_item_approval_mixin__item_class
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_service__item_class
+#: model:ir.model.fields,field_description:repair_item_approval.field_stock_move__item_class
+msgid "Item Class"
+msgstr "Classe do item"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__item_count
+msgid "Item Count"
+msgstr "Quantidade de itens"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_res_company__repair_approval_limit
+msgid ""
+"Item added in a repair order below this amount is applied without approval. "
+"Zero: every added item needs approval."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_order__pending_item_count
+msgid "Items Awaiting Approval"
+msgstr "Itens aguardando aprovação"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "Items approved internally:"
+msgstr "Itens aprovados internamente:"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "Items awaiting approval were added:"
+msgstr "Itens aguardando aprovação foram incluidos:"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "Items refused:"
+msgstr "Itens recusados:"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__res_company__repair_approval_base__line
+msgid "Line total"
+msgstr "Total da linha"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__item_class__mandatory
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__item_class__mandatory
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__sale_order_line__repair_item_class__mandatory
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__item_class__mandatory
+msgid "Mandatory (regulation)"
+msgstr "Obrigatório (regulamentação)"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_sale_order_line__repair_item_class
+msgid ""
+"Mandatory items (required by the regulation) are not negotiated: price and "
+"discount are locked."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__note
+msgid "Note"
+msgstr "Observação"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "Only the approval managers approve items internally."
+msgstr "Somente os gestores de aprovação aprovam itens internamente."
+
+#. module: repair_item_approval
+#: model:ir.actions.act_window,name:repair_item_approval.action_repair_pending_item_wizard
+msgid "Pending repair items"
+msgstr "Itens pendentes do reparo"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__item_class__recommended
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__item_class__recommended
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__sale_order_line__repair_item_class__recommended
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__item_class__recommended
+msgid "Recommended"
+msgstr "Recomendado"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_item_approval_mixin__refusal_note
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_service__refusal_note
+#: model:ir.model.fields,field_description:repair_item_approval.field_stock_move__refusal_note
+msgid "Refusal Note"
+msgstr "Motivo da recusa"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_pending_item_wizard__decision__refuse
+msgid "Refuse"
+msgstr "Recusar"
+
+#. module: repair_item_approval
+#: model_terms:ir.ui.view,arch_db:repair_item_approval.view_repair_order_form_item_approval
+msgid "Refuse pending items"
+msgstr "Recusar itens pendentes"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_repair_pending_item_wizard__finish
+msgid "Refuse the pending items and finish the repair order in one step."
+msgstr "Recusar os itens pendentes e concluir a ordem de reparo de uma vez."
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_state__rejected
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_state__rejected
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_state__rejected
+msgid "Refused"
+msgstr "Recusado"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_pending_item_wizard__repair_id
+msgid "Repair"
+msgstr ""
+
+#. module: repair_item_approval
+#: model_terms:ir.ui.view,arch_db:repair_item_approval.view_company_form_repair_approval
+msgid "Repair Approval"
+msgstr "Aprovação do reparo"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_company__repair_approval_base
+msgid "Repair Approval Base"
+msgstr "Base do limite de aprovação"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_company__repair_approval_cumulative
+msgid "Repair Approval Cumulative"
+msgstr "Limite acumulado por produto"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_company__repair_approval_currency_id
+msgid "Repair Approval Currency"
+msgstr "Moeda do limite de aprovação"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_company__repair_approval_limit
+msgid "Repair Approval Limit"
+msgstr "Limite de aprovação"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_res_company__repair_approval_inclusive
+msgid "Repair Approval Limit Inclusive"
+msgstr "Limite de aprovação inclui o valor"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_repair_item_approval_mixin
+msgid "Repair Item Approval Mixin"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_sale_order_line__repair_item_class
+msgid "Repair Item Class"
+msgstr "Classe do item de reparo"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_repair_order
+msgid "Repair Order"
+msgstr "Ordem de reparo"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_repair_service
+msgid "Repair Service"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:res.groups,name:repair_item_approval.group_repair_item_manager
+msgid "Repair item approval manager"
+msgstr "Gestor de aprovação de itens do reparo"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "Repair items awaiting approval: %s"
+msgstr "Itens do reparo aguardando aprovação: %s"
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_order.py:0
+msgid "Repair order cancelled"
+msgstr "Ordem de reparo cancelada"
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__approval_origin__order
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__approval_origin__order
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__approval_origin__order
+msgid "Sale order"
+msgstr "Pedido de venda"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_item_approval_mixin__item_class__standard
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__repair_service__item_class__standard
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__sale_order_line__repair_item_class__standard
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__stock_move__item_class__standard
+msgid "Standard"
+msgstr "Padrão"
+
+#. module: repair_item_approval
+#: model:ir.model,name:repair_item_approval.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields,help:repair_item_approval.field_res_company__repair_approval_cumulative
+msgid ""
+"Sum the items of the same product of the repair order, so that nobody splits"
+" an item into small lines to stay under the limit."
+msgstr ""
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_item_approval_mixin.py:0
+msgid ""
+"The approval of a repair item changes only through the approval actions, "
+"never by editing it."
+msgstr ""
+
+#. module: repair_item_approval
+#. odoo-python
+#: code:addons/repair_item_approval/models/repair_item_approval_mixin.py:0
+msgid ""
+"The new quantity of %(product)s goes over the approval limit: add a new line"
+" for the difference."
+msgstr ""
+
+#. module: repair_item_approval
+#: model:ir.model.fields.selection,name:repair_item_approval.selection__res_company__repair_approval_base__unit
+msgid "Unit price"
+msgstr "Preço unitario"
+
+#. module: repair_item_approval
+#: model:ir.model.fields,field_description:repair_item_approval.field_repair_order__customer_wait_since
+msgid "Waiting for the customer since"
+msgstr "Aguardando o cliente desde"

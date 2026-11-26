@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_repair_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 00:08+0000\n"
+"PO-Revision-Date: 2026-11-26 00:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_repair_order
+#: model:ir.model.fields.selection,name:sale_repair_order.selection__sale_order__repair_role__complement
+msgid "Complementary"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields.selection,name:sale_repair_order.selection__sale_order__repair_role__main
+msgid "Main"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields.selection,name:sale_repair_order.selection__sale_order_type__repair_mode__none
+msgid "No repair order"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields.selection,name:sale_repair_order.selection__sale_order_type__repair_mode__single
+msgid "One repair order per sale order"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,help:sale_repair_order.field_sale_order_type__repair_picking_type_id
+msgid ""
+"Operation type of the repair order. Empty: the repair operation type of the "
+"warehouse of the sale order."
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_sale_order__repair_mode
+#: model:ir.model.fields,field_description:sale_repair_order.field_sale_order_type__repair_mode
+msgid "Repair Mode"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_sale_order_type__repair_picking_type_id
+msgid "Repair Operation Type"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model,name:sale_repair_order.model_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_sale_order__repair_id
+msgid "Repair Order"
+msgstr ""
+
+#. module: sale_repair_order
+#. odoo-python
+#: code:addons/sale_repair_order/models/sale_order.py:0
+msgid "Repair Orders"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_sale_order__repair_role
+msgid "Repair Role"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model,name:sale_repair_order.model_repair_service
+msgid "Repair Service"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,help:sale_repair_order.field_sale_order__repair_id
+msgid "Repair order served by this sale order (main or complementary)."
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_repair_service__sale_order_id
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_repair_service__sale_line_id
+msgid "Sale Order Line"
+msgstr ""
+
+#. module: sale_repair_order
+#. odoo-python
+#: code:addons/sale_repair_order/models/repair_order.py:0
+#: model:ir.model.fields,field_description:sale_repair_order.field_repair_order__sale_order_ids
+#: model_terms:ir.ui.view,arch_db:sale_repair_order.view_repair_order_form_sale_repair_order
+msgid "Sale Orders"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,field_description:sale_repair_order.field_repair_order__order_count
+msgid "Sale Orders Count"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model,name:sale_repair_order.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model,name:sale_repair_order.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model,name:sale_repair_order.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: sale_repair_order
+#. odoo-python
+#: code:addons/sale_repair_order/models/sale_order_line.py:0
+msgid ""
+"The line %s has several moves in the repair order: change them in the repair"
+" order."
+msgstr ""
+
+#. module: sale_repair_order
+#. odoo-python
+#: code:addons/sale_repair_order/models/sale_order_line.py:0
+msgid ""
+"The repair order %(repair)s is %(state)s: create a new sale order for this "
+"change."
+msgstr ""
+
+#. module: sale_repair_order
+#. odoo-python
+#: code:addons/sale_repair_order/models/sale_order.py:0
+msgid ""
+"The repair order %(repair)s is already done: the sale order %(order)s cannot"
+" be cancelled."
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model,name:sale_repair_order.model_sale_order_type
+msgid "Type of sale order"
+msgstr ""
+
+#. module: sale_repair_order
+#: model:ir.model.fields,help:sale_repair_order.field_sale_order__repair_mode
+#: model:ir.model.fields,help:sale_repair_order.field_sale_order_type__repair_mode
+msgid ""
+"With 'One repair order per sale order', confirming a sale order of this type"
+" opens a single repair order carrying the goods as parts and the services of"
+" the order, instead of delivering the goods."
+msgstr ""
