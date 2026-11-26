@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_repair_quote" model="res.groups">
+        <field name="name">Repair complementary quotation</field>
+        <field
+            name="comment"
+        >Generates and sends the complementary orders of a repair order.</field>
+        <field
+            name="implied_ids"
+            eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"
+        />
+    </record>
+</odoo>

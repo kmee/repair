@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_repair_order_form_complementary" model="ir.ui.view">
+        <field name="name">repair.order.form - repair_complementary_quotation</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="has_unquoted_pending_items" invisible="1" />
+                <button
+                    name="action_create_complementary_order"
+                    type="object"
+                    string="Generate complementary quotation"
+                    class="btn-primary"
+                    invisible="not has_unquoted_pending_items or state in ('done', 'cancel')"
+                    groups="repair_complementary_quotation.group_repair_quote"
+                />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_view_complements"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-plus-square"
+                    invisible="complement_count == 0"
+                >
+                    <field
+                        name="complement_count"
+                        widget="statinfo"
+                        string="Complementary"
+                    />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
