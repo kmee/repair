@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_repair_order_form_remove_destination" model="ir.ui.view">
+        <field name="name">repair.order.form - repair_remove_destination</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='move_ids']/list/field[@name='repair_line_type']"
+                position="after"
+            >
+                <field
+                    name="removed_destination"
+                    invisible="repair_line_type == 'add'"
+                    readonly="state in ('done', 'cancel')"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

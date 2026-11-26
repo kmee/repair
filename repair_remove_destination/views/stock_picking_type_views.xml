@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="repair_remove_destination_view_picking_type_form" model="ir.ui.view">
+        <field name="name">stock.picking.type.form - repair_remove_destination</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="repair.repair_view_picking_type_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='default_recycle_location_dest_id']"
+                position="after"
+            >
+                <field
+                    name="removed_quarantine_location_id"
+                    options="{'no_create': True}"
+                    invisible="code != 'repair_operation'"
+                />
+                <field
+                    name="removed_recoverable_location_id"
+                    options="{'no_create': True}"
+                    invisible="code != 'repair_operation'"
+                />
+                <field
+                    name="removed_condemned_location_id"
+                    options="{'no_create': True}"
+                    invisible="code != 'repair_operation'"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
