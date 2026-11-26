@@ -23,6 +23,8 @@ msgid ""
 "%(repair)s has %(count)s item(s) awaiting approval: approve or refuse them "
 "before finishing the repair."
 msgstr ""
+"A %(repair)s tem %(count)s item(ns) aguardando aprovação: aprove ou recuse "
+"antes de finalizar o reparo."
 
 #. module: repair_item_approval
 #. odoo-python
@@ -30,6 +32,7 @@ msgstr ""
 msgid ""
 "%s is mandatory by the regulation: price and discount are not negotiated."
 msgstr ""
+"%s é obrigatório pela regulamentação: preço e desconto não são negociados."
 
 #. module: repair_item_approval
 #. odoo-python
@@ -455,6 +458,8 @@ msgid ""
 "The approval of a repair item changes only through the approval actions, "
 "never by editing it."
 msgstr ""
+"A aprovação de um item do reparo muda só pelas ações de aprovação, nunca por"
+" edição."
 
 #. module: repair_item_approval
 #. odoo-python
@@ -463,6 +468,8 @@ msgid ""
 "The new quantity of %(product)s goes over the approval limit: add a new line"
 " for the difference."
 msgstr ""
+"A nova quantidade de %(product)s passa do limite de aprovação: inclua uma "
+"nova linha para a diferença."
 
 #. module: repair_item_approval
 #: model:ir.model.fields.selection,name:repair_item_approval.selection__res_company__repair_approval_base__unit

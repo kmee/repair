@@ -126,6 +126,8 @@ msgid ""
 "The line %s has several moves in the repair order: change them in the repair"
 " order."
 msgstr ""
+"A linha %s tem vários movimentos na ordem de reparo: altere-os na ordem de "
+"reparo."
 
 #. module: sale_repair_order
 #. odoo-python
@@ -134,6 +136,8 @@ msgid ""
 "The repair order %(repair)s is %(state)s: create a new sale order for this "
 "change."
 msgstr ""
+"A ordem de reparo %(repair)s está %(state)s: crie um novo pedido de venda "
+"para esta alteração."
 
 #. module: sale_repair_order
 #. odoo-python
@@ -142,6 +146,8 @@ msgid ""
 "The repair order %(repair)s is already done: the sale order %(order)s cannot"
 " be cancelled."
 msgstr ""
+"A ordem de reparo %(repair)s já foi concluída: o pedido de venda %(order)s "
+"não pode ser cancelado."
 
 #. module: sale_repair_order
 #: model:ir.model,name:sale_repair_order.model_sale_order_type

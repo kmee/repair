@@ -23,6 +23,8 @@ msgid ""
 "%(order)s has confirmed complementary orders (%(names)s): they are part of "
 "the repair."
 msgstr ""
+"O pedido %(order)s tem pedidos complementares confirmados (%(names)s): eles "
+"fazem parte do reparo."
 
 #. module: repair_complementary_quotation
 #. odoo-python
@@ -30,6 +32,8 @@ msgstr ""
 msgid ""
 "%s was already sent to the customer: cancel it before changing its items."
 msgstr ""
+"O pedido %s já foi enviado ao cliente: cancele-o antes de alterar seus "
+"itens."
 
 #. module: repair_complementary_quotation
 #. odoo-python
@@ -38,6 +42,8 @@ msgid ""
 "A complementary order cannot be duplicated: generate a new one from the "
 "repair order."
 msgstr ""
+"Um pedido complementar não pode ser duplicado: gere um novo a partir da "
+"ordem de reparo."
 
 #. module: repair_complementary_quotation
 #: model:ir.model.fields,field_description:repair_complementary_quotation.field_repair_order__complement_count
