@@ -16,9 +16,9 @@ class StockMove(models.Model):
         self._approval_apply_on_create(vals_list)
         moves = super().create(vals_list)
         pending = moves.filtered(
-            lambda m: m.repair_id
-            and m.approval_state == "pending"
-            and not m.approval_origin
+            lambda m: (
+                m.repair_id and m.approval_state == "pending" and not m.approval_origin
+            )
         )
         if pending and not self.env.context.get("repair_approval_internal"):
             for repair, items in pending.grouped("repair_id").items():
@@ -28,6 +28,17 @@ class StockMove(models.Model):
     def write(self, vals):
         self._check_approval_write(vals)
         return super().write(vals)
+
+    @api.depends("approval_state")
+    def _compute_forecast_information(self):
+        # A pending or refused item does not make the repair order "not available"
+        skipped = self.filtered(
+            lambda m: m.repair_id and m.approval_state != "approved"
+        )
+        for move in skipped:
+            move.forecast_availability = move.product_qty
+            move.forecast_expected_date = False
+        return super(StockMove, self - skipped)._compute_forecast_information()
 
     def _action_confirm(self, *args, **kwargs):
         # A pending item neither reserves nor consumes stock until approved.
@@ -43,8 +54,10 @@ class StockMove(models.Model):
     def _after_item_approved(self):
         res = super()._after_item_approved()
         moves = self.filtered(
-            lambda m: m.repair_id.state in ("confirmed", "under_repair")
-            and m.state == "draft"
+            lambda m: (
+                m.repair_id.state in ("confirmed", "under_repair")
+                and m.state == "draft"
+            )
         )
         moves._action_confirm()
         self._create_repair_sale_order_line()

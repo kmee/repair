@@ -43,16 +43,19 @@ class RepairOrder(models.Model):
     def _get_approval_amount_same_product(self, product, exclude=None):
         self.ensure_one()
         moves = self.move_ids.filtered(
-            lambda m: m.repair_line_type == "add"
-            and m.product_id == product
-            and m.state != "cancel"
+            lambda m: (
+                m.repair_line_type == "add"
+                and m.product_id == product
+                and m.state != "cancel"
+            )
         )
         services = self.repair_service_ids.filtered(lambda s: s.product_id == product)
         total = 0.0
         for items in (moves, services):
             items = items.filtered(
-                lambda i: i.approval_state != "rejected"
-                and i.approval_origin != "order"
+                lambda i: (
+                    i.approval_state != "rejected" and i.approval_origin != "order"
+                )
             )
             if exclude and exclude in items:
                 items -= exclude

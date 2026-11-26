@@ -49,8 +49,7 @@ class RepairItemApprovalMixin(models.AbstractModel):
         currency_field="approval_currency_id",
         copy=False,
         readonly=True,
-        help="Amount of the item when it was added, in the currency of the "
-        "sale order.",
+        help="Amount of the item when it was added, in the currency of the sale order.",
     )
     approval_currency_id = fields.Many2one(
         comodel_name="res.currency", compute="_compute_approval_currency_id"

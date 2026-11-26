@@ -232,8 +232,18 @@ class TestRepairItemApproval(SaleRepairCommon):
                 "product_uom_qty": 500.0,
             }
         )
+        technician = self.env["res.users"].create(
+            {
+                "name": "Technician",
+                "login": "sr_technician_approval",
+                "email": "sr_technician_approval@example.com",
+                "groups_id": [(6, 0, [self.env.ref("stock.group_stock_user").id])],
+            }
+        )
         with self.assertRaises(UserError):
-            self.repair.action_approve_pending_items(note="ok")  # not a manager
+            self.repair.with_user(technician).action_approve_pending_items(
+                note="ok"
+            )  # not a manager
         repair = self.repair.with_user(self.manager)
         with self.assertRaises(UserError):
             repair.action_approve_pending_items()  # no note
@@ -327,3 +337,13 @@ class TestRepairItemApproval(SaleRepairCommon):
         )
         self.assertEqual(len(item), 1)
         self.assertEqual(item.state, "draft")
+
+    def test_21_refused_or_pending_item_keeps_the_parts_available(self):
+        self.repair.action_repair_start()
+        self.assertEqual(self.repair.parts_availability_state, "available")
+        item = self._move(self.part_b, 25.0)
+        self.assertEqual(item.approval_state, "pending")
+        self.assertEqual(self.repair.parts_availability_state, "available")
+        self.repair.action_refuse_pending_items(note="declined")
+        self.assertEqual(item.approval_state, "rejected")
+        self.assertEqual(self.repair.parts_availability_state, "available")
