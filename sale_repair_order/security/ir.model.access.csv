@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_repair_order_salesman,repair.order salesman,repair.model_repair_order,sales_team.group_sale_salesman,1,0,0,0
+access_repair_tags_salesman,repair.tags salesman,repair.model_repair_tags,sales_team.group_sale_salesman,1,0,0,0
+access_repair_service_salesman,repair.service salesman,repair_service.model_repair_service,sales_team.group_sale_salesman,1,0,0,0
