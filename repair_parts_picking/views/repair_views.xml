@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_repair_order_form_parts_picking" model="ir.ui.view">
+        <field name="name">repair.order.form - repair_parts_picking</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_return_leftovers"
+                    type="object"
+                    string="Return leftover parts"
+                    invisible="state not in ('under_repair', 'done')"
+                />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_view_parts_pickings"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-truck"
+                    invisible="parts_picking_count == 0"
+                >
+                    <field
+                        name="parts_picking_count"
+                        widget="statinfo"
+                        string="Transfers"
+                    />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
